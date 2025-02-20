@@ -22,12 +22,6 @@ public class Passenger {
         this.aircraft = aircraft;
     }
 
-    public Passenger(String firstName, String lastName, String phoneNumber){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-    }
-
     // getters
     public long getId(){ return this.id; }
 

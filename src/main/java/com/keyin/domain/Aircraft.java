@@ -20,15 +20,6 @@ public class Aircraft {
         this.passengers=passengers;
         this.airports=airports;
     }
-
-    public Aircraft(String type, String airlineName, int numberOfPassengers, List<Passenger> passengers, List<Airport> airports){
-        this.type = type;
-        this.airlineName = airlineName;
-        this.numberOfPassengers = numberOfPassengers;
-        this.passengers=passengers;
-        this.airports=airports;
-    }
-
     //getters
     public long getId(){
         return this.id;
