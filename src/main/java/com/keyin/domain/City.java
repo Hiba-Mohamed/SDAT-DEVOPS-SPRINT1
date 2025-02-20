@@ -22,6 +22,10 @@ public class City {
         this.passengers = passengers;
     }
 
+    public City(String name) {
+        this.name = name;
+    }
+
     //getters
     public long getId(){ return this.id; }
 
