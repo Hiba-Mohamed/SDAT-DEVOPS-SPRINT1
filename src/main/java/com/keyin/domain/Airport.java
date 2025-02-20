@@ -27,6 +27,13 @@ public class Airport {
         this.aircraftList = aircraftList;
     }
 
+    public Airport(String name, String code, City city, List<Aircraft> aircraftList) {
+        this.name = name;
+        this.code = code;
+        this.city = city;
+        this.aircraftList = aircraftList;
+    }
+
     public long getId() {
         return id;
     }
