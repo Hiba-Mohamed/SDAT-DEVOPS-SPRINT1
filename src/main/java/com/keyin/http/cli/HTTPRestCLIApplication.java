@@ -14,12 +14,8 @@ public class HTTPRestCLIApplication {
         // System.out.println(getRestClient().getResponseFromHTTPRequest());
     }
 
-    private void giveMeCityIdIReturnAllItsAirports() {
-        System.out.println("Logic not added Yet");
-        // List<Airport> airports = getRestClient().giveMeCityIdIReturnAllItsAirports();
-        // for (Airport airport : airports) {
-        //     System.out.println("Airport: " + airport.getName() + ", Code: " + airport.getCode());
-        // }
+    private void giveMeCityIdIReturnAllItsAirports(int cityId) {
+        restClient.giveMeCityIdIReturnAllItsAirports(cityId);
     }
 
     private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
@@ -29,7 +25,8 @@ public class HTTPRestCLIApplication {
     private void giveMePassengerIdIReturnAllAirportsTheyUsed(){
         System.out.println("Logic not added Yet");
         }
-            private void exitApplication() {
+        
+    private void exitApplication() {
         System.out.println("Exiting application...");
         System.exit(0);
     }
@@ -74,7 +71,15 @@ public class HTTPRestCLIApplication {
             // Handle user input using switch statement
             switch (choice) {
                 case 1:
-                    cliApp.giveMeCityIdIReturnAllItsAirports();  
+                    System.out.println("Type The City Id: ");
+                    int cityID = scanner.nextInt();
+                    System.out.println("");
+                    System.out.println("--------------------------------");
+                    cliApp.giveMeCityIdIReturnAllItsAirports(cityID); 
+                    System.out.println("--------------------------------");
+                    System.out.println("");
+
+
                     break;
                 case 2:
                     cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn();  
