@@ -14,6 +14,8 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.keyin.domain.Aircraft;
+
 public class RESTClient {
     private String serverURL;
     private HttpClient client;
@@ -41,7 +43,6 @@ public class RESTClient {
 public List<Airport> getAllAirports() {
     List<Airport> airports = new ArrayList<>();
 
-    // ✅ Set the correct API endpoint URL
     String apiUrl = "http://localhost:8080/airports";
 
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
@@ -76,10 +77,8 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) {
-            // Build the airport list from the response
             airports = buildAirportListFromResponse(response.body());
             System.out.println("Airports in City ID " + cityID + ":");
-            // Print out the airports
             for (Airport airport : airports) {
                 System.out.println(airport.getName() + " - " + airport.getCode());
             }
@@ -95,11 +94,35 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
 
 
     private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
-        System.out.println("Logic not added Yet");
-        }
+        
+    //     System.out.println("Logic not added Yet");
+    //     }
 
-    private void giveMePassengerIdIReturnAllAirportsTheyUsed(){
-        System.out.println("Logic not added Yet");
+    // public List<Aircraft> giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID){
+    //     List<Aircraft> aicrafts = new ArrayList<>();
+    //         String apiUrl = "http://localhost:8080/aicraftsByCity/" + cityID;
+
+    //         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+
+    //         try {
+    //             HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+    //             if (response.statusCode() == 200) {
+    //                 // Build the aicraft list from the response
+    //                 aicrafts = buildAircraftListFromResponse(response.body());
+    //                 System.out.println("Aicrafts in City ID " + cityID + ":");
+    //                 // Print out the aicrafts
+    //                 for (Aircraft aicraft : aircrafts) {
+    //                     System.out.println(aicraft.getName() + " - " + aicraft.getCode());
+    //                 }
+    //             } else {
+    //                 System.out.println("Error Status Code: " + response.statusCode());
+    //             }
+    //         } catch (IOException | InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+
+    //         return aicrafts;
         }
         
     private void exitApplication() {
@@ -116,6 +139,15 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         airports = mapper.readValue(response, new TypeReference<List<Airport>>(){});
 
         return airports;
+    }
+
+    
+    public List<Aircraft> buildAircraftListFromResponse(String response) throws JsonProcessingException {
+        List<Aircraft> aircrafts = new ArrayList<Aircraft>();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        aircrafts = mapper.readValue(response, new TypeReference<List<Aircraft>>(){});
+        return aircrafts;
     }
 
     public String getServerURL() {

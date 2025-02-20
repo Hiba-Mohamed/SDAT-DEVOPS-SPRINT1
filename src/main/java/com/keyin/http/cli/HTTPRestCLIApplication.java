@@ -9,13 +9,14 @@ public class HTTPRestCLIApplication {
     private RESTClient restClient;
 
     // Methods to handle specific actions
-    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn() {
-                System.out.println("Logic not added Yet");
-        // System.out.println(getRestClient().getResponseFromHTTPRequest());
-    }
 
     private void giveMeCityIdIReturnAllItsAirports(int cityId) {
         restClient.giveMeCityIdIReturnAllItsAirports(cityId);
+    }
+
+    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
+                System.out.println("Logic not added Yet");
+        // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
     }
 
     private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
@@ -78,12 +79,17 @@ public class HTTPRestCLIApplication {
                     cliApp.giveMeCityIdIReturnAllItsAirports(cityID); 
                     System.out.println("--------------------------------");
                     System.out.println("");
-
-
                     break;
+
                 case 2:
-                    cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn();  
+                    System.out.println("Type The Passenger Id: ");
+                    int passengerID = scanner.nextInt();
+                    System.out.println("");
+                    System.out.println("----------------------------------------");
+                    cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID); 
+                    System.out.println("-----------------------------------------");
                     break;
+
                 case 3:
                     cliApp.giveMeAircraftIdIReturnAllAirportsItCanUse();  
                     break;
