@@ -65,9 +65,48 @@ public List<Airport> getAllAirports() {
     return airports;
 }
 
-public void giveMeCityIdIReturnAllItsAirports(){
-    System.out.println("Logic not added yet! ");
+
+public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
+    List<Airport> airports = new ArrayList<>();
+    String apiUrl = "http://localhost:8080/airportsByCity/" + cityID;
+
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+
+    try {
+        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) {
+            // Build the airport list from the response
+            airports = buildAirportListFromResponse(response.body());
+            System.out.println("Airports in City ID " + cityID + ":");
+            // Print out the airports
+            for (Airport airport : airports) {
+                System.out.println(airport.getName() + " - " + airport.getCode());
+            }
+        } else {
+            System.out.println("Error Status Code: " + response.statusCode());
+        }
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
+
+    return airports;
 }
+
+
+    private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
+        System.out.println("Logic not added Yet");
+        }
+
+    private void giveMePassengerIdIReturnAllAirportsTheyUsed(){
+        System.out.println("Logic not added Yet");
+        }
+        
+    private void exitApplication() {
+        System.out.println("Exiting application...");
+        System.exit(0);
+    }
+
 
     public List<Airport> buildAirportListFromResponse(String response) throws JsonProcessingException {
         List<Airport> airports = new ArrayList<Airport>();
