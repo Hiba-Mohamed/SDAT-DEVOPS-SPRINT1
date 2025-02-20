@@ -38,29 +38,36 @@ public class RESTClient {
     }
 
 
-    public List<Airport> getAllAirports() {
-        List<Airport> airports = new ArrayList<Airport>();
+public List<Airport> getAllAirports() {
+    List<Airport> airports = new ArrayList<>();
 
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(serverURL)).build();
+    // ✅ Set the correct API endpoint URL
+    String apiUrl = "http://localhost:8080/airports";
 
-        try {
-            HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode()==200) {
-                System.out.println("***** " + response.body());
-            } else {
-                System.out.println("Error Status Code: " + response.statusCode());
-            }
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
 
-            airports = buildAirportListFromResponse(response.body());
+    try {
+        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
 
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+        if (response.statusCode() == 200) {
+            List<Airport> allAirportsArray = buildAirportListFromResponse(response.body()); 
+            System.out.println(allAirportsArray);
+        } else {
+            System.out.println("Error Status Code: " + response.statusCode());
         }
 
+        airports = buildAirportListFromResponse(response.body());
 
-        return airports;
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
     }
+
+    return airports;
+}
+
+public void giveMeCityIdIReturnAllItsAirports(){
+    System.out.println("Logic not added yet! ");
+}
 
     public List<Airport> buildAirportListFromResponse(String response) throws JsonProcessingException {
         List<Airport> airports = new ArrayList<Airport>();
