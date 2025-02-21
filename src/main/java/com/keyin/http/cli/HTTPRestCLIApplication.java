@@ -1,21 +1,22 @@
 package com.keyin.http.cli;
-
 import java.util.Scanner;
 
 import com.keyin.http.client.RESTClient;
+
 
 public class HTTPRestCLIApplication {
 
     private RESTClient restClient;
 
     // Methods to handle specific actions
-    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn() {
-                System.out.println("Logic not added Yet");
-        // System.out.println(getRestClient().getResponseFromHTTPRequest());
-    }
 
     private void giveMeCityIdIReturnAllItsAirports(int cityId) {
         restClient.giveMeCityIdIReturnAllItsAirports(cityId);
+    }
+
+    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
+                System.out.println("Logic not added Yet");
+        // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
     }
 
     private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
@@ -31,6 +32,9 @@ public class HTTPRestCLIApplication {
         System.exit(0);
     }
 
+    //     public void insertSampleDataToDatabase(){
+    //     this.restClient.insertSampleData();
+    // }
 
     public RESTClient getRestClient() {
         if (restClient == null) {
@@ -48,15 +52,35 @@ public class HTTPRestCLIApplication {
         HTTPRestCLIApplication cliApp = new HTTPRestCLIApplication();
         String serverURL = "http://localhost:8080";  
 
+ 
+
         if (serverURL != null && !serverURL.isEmpty()) {
             RESTClient restClient = new RESTClient();
             restClient.setServerURL(serverURL);
             cliApp.setRestClient(restClient);
         }
 
+       for(int i=1;i<11;i++){
+            cliApp.restClient.createCity(i);
+        }
+        
+        for(int i=1;i<31;i++){
+            cliApp.restClient.createPassenger(i);
+        }
+
+        for(int i=1;i<11;i++){
+            cliApp.restClient.createAirport(i);
+        }
+
+        for(int i=1;i<11;i++){
+            cliApp.restClient.createAircraft(i);
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
+
             // Display menu options
             System.out.println("Please choose an option:");
             System.out.println("1. What airports are in what cities?");
@@ -78,12 +102,17 @@ public class HTTPRestCLIApplication {
                     cliApp.giveMeCityIdIReturnAllItsAirports(cityID); 
                     System.out.println("--------------------------------");
                     System.out.println("");
-
-
                     break;
+
                 case 2:
-                    cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn();  
+                    System.out.println("Type The Passenger Id: ");
+                    int passengerID = scanner.nextInt();
+                    System.out.println("");
+                    System.out.println("----------------------------------------");
+                    cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID); 
+                    System.out.println("-----------------------------------------");
                     break;
+
                 case 3:
                     cliApp.giveMeAircraftIdIReturnAllAirportsItCanUse();  
                     break;
