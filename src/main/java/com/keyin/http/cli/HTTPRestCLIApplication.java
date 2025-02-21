@@ -1,8 +1,8 @@
 package com.keyin.http.cli;
-
 import java.util.Scanner;
 
 import com.keyin.http.client.RESTClient;
+
 
 public class HTTPRestCLIApplication {
 
@@ -32,6 +32,9 @@ public class HTTPRestCLIApplication {
         System.exit(0);
     }
 
+    //     public void insertSampleDataToDatabase(){
+    //     this.restClient.insertSampleData();
+    // }
 
     public RESTClient getRestClient() {
         if (restClient == null) {
@@ -49,15 +52,35 @@ public class HTTPRestCLIApplication {
         HTTPRestCLIApplication cliApp = new HTTPRestCLIApplication();
         String serverURL = "http://localhost:8080";  
 
+ 
+
         if (serverURL != null && !serverURL.isEmpty()) {
             RESTClient restClient = new RESTClient();
             restClient.setServerURL(serverURL);
             cliApp.setRestClient(restClient);
         }
 
+       for(int i=1;i<11;i++){
+            cliApp.restClient.createCity(i);
+        }
+        
+        for(int i=1;i<31;i++){
+            cliApp.restClient.createPassenger(i);
+        }
+
+        for(int i=1;i<11;i++){
+            cliApp.restClient.createAirport(i);
+        }
+
+        for(int i=1;i<11;i++){
+            cliApp.restClient.createAircraft(i);
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+
+
             // Display menu options
             System.out.println("Please choose an option:");
             System.out.println("1. What airports are in what cities?");
