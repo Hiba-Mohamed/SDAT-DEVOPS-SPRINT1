@@ -15,7 +15,7 @@ public class HTTPRestCLIApplication {
     }
 
     private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
-                System.out.println("Logic not added Yet");
+                restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
         // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
     }
 
@@ -60,21 +60,7 @@ public class HTTPRestCLIApplication {
             cliApp.setRestClient(restClient);
         }
 
-       for(int i=1;i<11;i++){
-            cliApp.restClient.createCity(i);
-        }
-
-        for(int i=1;i<11;i++){
-            cliApp.restClient.createAirport(i);
-        }
-
-        for(int i=1;i<11;i++){
-            cliApp.restClient.createAircraft(i);
-        }
-        for(int i=1;i<31;i++){
-            cliApp.restClient.createPassenger(i);
-        }
-
+        cliApp.restClient.InsertSampleData();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -114,10 +100,22 @@ public class HTTPRestCLIApplication {
                     break;
 
                 case 3:
+                 System.out.println("Type The Aircraft Id: ");
+                    int aircraftID = scanner.nextInt();
+                    System.out.println("");
+                    System.out.println("----------------------------------------");
                     cliApp.giveMeAircraftIdIReturnAllAirportsItCanUse();  
+                    System.out.println("-----------------------------------------");
+
                     break;
                 case 4:
+                    System.out.println("Type The Passenger Id: ");
+                    int passengerId = scanner.nextInt();
+                    System.out.println("");
+                    System.out.println("----------------------------------------");
                     cliApp.giveMePassengerIdIReturnAllAirportsTheyUsed();  
+                    System.out.println("-----------------------------------------");
+
                     break;
                 case 5:
                     cliApp.exitApplication();  

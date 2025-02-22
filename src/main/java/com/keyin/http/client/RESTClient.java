@@ -1,5 +1,6 @@
 package com.keyin.http.client;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -271,15 +272,139 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
             e.printStackTrace();
         }
     }
+
+    public void addPassengersToAircraft(int number) {
+        int allowedNumberToMultiply = 1 + (int)(Math.random() * 3);
+        String apiUrl = "http://localhost:8080/updateAircraftPassengersList/" + number; 
+        String jsonBody = "[" +
+                (1 * allowedNumberToMultiply) + "," +
+                (2 * allowedNumberToMultiply) + "," +
+                (3 * allowedNumberToMultiply) + "," +
+                (4 * allowedNumberToMultiply) + "," +
+                (5 * allowedNumberToMultiply) + "," +
+                (6 * allowedNumberToMultiply) + "," +
+                (7 * allowedNumberToMultiply) + "," +
+                (8 * allowedNumberToMultiply) + "," +
+                (9 * allowedNumberToMultiply) + "," +
+                (10 * allowedNumberToMultiply) +
+                "]";
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(apiUrl))
+            .header("Content-Type", "application/json") 
+            .PUT(BodyPublishers.ofString(jsonBody)) 
+            .build();
+
+        try {
+            // Sending HTTP request
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handling response
+            if (response.statusCode() == 200) { 
+                System.out.println("PassengerList added successfully for Aircraft: " + response.body());
+            } else {
+                System.out.println("Error: " + response.statusCode() + " - " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void InsertSampleData(){
-       
+        for(int i=1;i<11;i++){
+            createCity(i);
+        }
 
+        for(int i=1;i<11;i++){
+           createAirport(i);
+        }
 
+        for(int i=1;i<11;i++){
+            createAircraft(i);
+        }
+        for(int i=1;i<31;i++){
+           createPassenger(i);
+        }
 
+        for (int i=1;i<11;i++){
+            addPassengersToAircraft(i);
+        }
 
+        
    
 
     }
+
+public void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId) {
+
+    String apiUrl = "http://localhost:8080/" + passengerId + "/aircraftsPassengerTravelledOn";
+
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+
+    try {
+        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) { 
+            System.out.println("Passenger " + passengerId +" Travelled on Airraft Below: ");
+            System.out.println("");
+
+            List<AircraftDisplay> allAircraftDisplays = buildAircraftDisplayListFromResponse(response.body()); 
+
+        } else {
+            System.out.println("Error Status Code: " + response.statusCode());
+        }
+
+
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
+
+}
+
+public static class AircraftDisplay {  // Add static keyword here
+    @JsonProperty("craftId")
+    private long craftId;
+    
+    @JsonProperty("type")
+    private String type;
+    
+    @JsonProperty("airlineName")
+    private String airlineName;
+
+    // Getters and Setters
+    public long getCraftId() {
+        return craftId;
+    }
+
+    public void setCraftId(long craftId) {
+        this.craftId = craftId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAirlineName() {
+        return airlineName;
+    }
+
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
+    }
+
+    @Override
+    public String toString() {
+        return "Aircraft{" +
+               "craftId=" + craftId +
+               ", type='" + type + '\'' +
+               ", airlineName='" + airlineName + '\'' +
+               '}';
+    }
+}
 
 
     public List<Airport> buildAirportListFromResponse(String response) throws JsonProcessingException {
@@ -290,6 +415,21 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         airports = mapper.readValue(response, new TypeReference<List<Airport>>(){});
 
         return airports;
+    }
+
+    public List<AircraftDisplay> buildAircraftDisplayListFromResponse(String response) throws JsonProcessingException {
+        List<AircraftDisplay> aircrafts = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        aircrafts = mapper.readValue(response, new TypeReference<List<AircraftDisplay>>() {});
+
+        for (AircraftDisplay aircraft : aircrafts) {
+            System.out.println(aircraft); 
+        }
+
+        return aircrafts;
     }
 
     
