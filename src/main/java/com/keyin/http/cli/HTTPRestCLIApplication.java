@@ -63,10 +63,6 @@ public class HTTPRestCLIApplication {
        for(int i=1;i<11;i++){
             cliApp.restClient.createCity(i);
         }
-        
-        for(int i=1;i<31;i++){
-            cliApp.restClient.createPassenger(i);
-        }
 
         for(int i=1;i<11;i++){
             cliApp.restClient.createAirport(i);
@@ -75,6 +71,10 @@ public class HTTPRestCLIApplication {
         for(int i=1;i<11;i++){
             cliApp.restClient.createAircraft(i);
         }
+        for(int i=1;i<31;i++){
+            cliApp.restClient.createPassenger(i);
+        }
+
 
         Scanner scanner = new Scanner(System.in);
 

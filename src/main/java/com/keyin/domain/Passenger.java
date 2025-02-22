@@ -6,14 +6,14 @@ public class Passenger {
     private long id;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
+    private int phoneNumber;
     private City city;
     private List<Aircraft> aircraft;
 
     public Passenger(){
     }
 
-    public Passenger(long id, String firstName, String lastName, String phoneNumber, City city, List<Aircraft> aircraft){
+    public Passenger(long id, String firstName, String lastName, int phoneNumber, City city, List<Aircraft> aircraft){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,7 +29,7 @@ public class Passenger {
 
     public String getLastName(){ return this.lastName; }
 
-    public String getPhoneNumber(){ return  this.phoneNumber; }
+    public int getPhoneNumber(){ return  this.phoneNumber; }
 
     public City getCity() { return city; }
 
@@ -42,7 +42,7 @@ public class Passenger {
 
     public void setLastName(String lastName){ this.lastName = lastName; }
 
-    public void setPhoneNumber(String phoneNumber){ this.phoneNumber = phoneNumber;}
+    public void setPhoneNumber(int phoneNumber){ this.phoneNumber = phoneNumber;}
 
     public void setCity(City city) { this.city = city; }
 

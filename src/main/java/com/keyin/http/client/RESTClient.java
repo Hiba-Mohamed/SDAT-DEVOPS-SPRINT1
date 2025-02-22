@@ -181,7 +181,7 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
             "\"firstName\": \"Name" + number + "\",\n" +
             "\"lastName\": \"Last" + number + "\",\n" +
             "\"phoneNumber\": " + number + ",\n" +
-            "\"cityID\": " + cityidRandom + "\n" +
+            "\"cityId\": " + cityidRandom + "\n" +
         "}";
 
 
@@ -214,7 +214,7 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         String jsonBody = "{\n" +
                 "  \"code\": \"AAA" + number + "\",\n" +
                 "  \"name\": \"Airport " + number + "\",\n" +
-                "  \"cityID\": " + number + "\n" +
+                "  \"cityId\": " + number + "\n" +
             "}";
 
 
@@ -246,7 +246,7 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         String jsonBody = "{\n" +
                 "  \"type\": \"Plane" + number + "\",\n" +
                 "  \"airlineName\": \"Aircraft " + number + "\",\n" +
-                "  \"numberOfPasseners\": " + number * 10 + "\n" +
+                "  \"numberOfPassengers\": " + number * 10 + "\n" +
             "}";
 
 
