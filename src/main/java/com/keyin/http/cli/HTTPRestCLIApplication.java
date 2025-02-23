@@ -19,8 +19,8 @@ public class HTTPRestCLIApplication {
         // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
     }
 
-    private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
-        System.out.println("Logic not added Yet");
+    private void giveMeAircraftIdIReturnAllAirports(int aircraftID){
+        restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
         }
 
     private void giveMePassengerIdIReturnAllAirportsTheyUsed(){
@@ -104,7 +104,7 @@ public class HTTPRestCLIApplication {
                     int aircraftID = scanner.nextInt();
                     System.out.println("");
                     System.out.println("----------------------------------------");
-                    cliApp.giveMeAircraftIdIReturnAllAirportsItCanUse();  
+                    cliApp.giveMeAircraftIdIReturnAllAirports(aircraftID); 
                     System.out.println("-----------------------------------------");
 
                     break;

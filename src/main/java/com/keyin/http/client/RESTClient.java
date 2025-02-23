@@ -97,8 +97,28 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
 }
 
 
-    private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
-        
+    public void giveMeAircraftIdIReturnAllAirportsItCanUse(int aircraftID){
+            String apiUrl = "http://localhost:8080/" + aircraftID + "/aircraftsAirportsList";
+
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+
+    try {
+        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) { 
+            System.out.println("Aircrat " + aircraftID+" Can travel on airports Below: ");
+            System.out.println("");
+
+            List<AirportDisplay> allAirportDisplays = buildAirportDisplayListFromResponse(response.body()); 
+
+        } else {
+            System.out.println("Error Status Code: " + response.statusCode());
+        }
+
+
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
     }
         
     private void exitApplication() {
@@ -489,6 +509,22 @@ public static class AirportDisplay {
 
         return aircrafts;
     }
+
+        public List<AirportDisplay> buildAirportDisplayListFromResponse(String response) throws JsonProcessingException {
+        List<AirportDisplay> airports = new ArrayList<>();
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+        airports = mapper.readValue(response, new TypeReference<List<AirportDisplay>>() {});
+
+        for (AirportDisplay airport : airports) {
+            System.out.println(airport); 
+        }
+
+        return airports;
+    }
+
 
     
     public List<Aircraft> buildAircraftListFromResponse(String response) throws JsonProcessingException {
