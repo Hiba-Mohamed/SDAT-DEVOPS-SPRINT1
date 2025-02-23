@@ -99,35 +99,7 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
 
     private void giveMeAircraftIdIReturnAllAirportsItCanUse(){
         
-    //     System.out.println("Logic not added Yet");
-    //     }
-
-    // public List<Aircraft> giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID){
-    //     List<Aircraft> aicrafts = new ArrayList<>();
-    //         String apiUrl = "http://localhost:8080/aicraftsByCity/" + cityID;
-
-    //         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
-
-    //         try {
-    //             HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
-
-    //             if (response.statusCode() == 200) {
-    //                 // Build the aicraft list from the response
-    //                 aicrafts = buildAircraftListFromResponse(response.body());
-    //                 System.out.println("Aicrafts in City ID " + cityID + ":");
-    //                 // Print out the aicrafts
-    //                 for (Aircraft aicraft : aircrafts) {
-    //                     System.out.println(aicraft.getName() + " - " + aicraft.getCode());
-    //                 }
-    //             } else {
-    //                 System.out.println("Error Status Code: " + response.statusCode());
-    //             }
-    //         } catch (IOException | InterruptedException e) {
-    //             e.printStackTrace();
-    //         }
-
-    //         return aicrafts;
-        }
+    }
         
     private void exitApplication() {
         System.out.println("Exiting application...");
@@ -310,6 +282,35 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         }
     }
 
+        public void addAirportsToAircraft(int number) {
+        String apiUrl = "http://localhost:8080/updateAircraftAirportList/" + number; 
+        int secondAirportNumberWithinRange = 1 + (int)(Math.random() * 10);
+        String jsonBody = "[" +
+                (1 * number) + "," +
+                secondAirportNumberWithinRange +
+                "]";
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(apiUrl))
+            .header("Content-Type", "application/json") 
+            .PUT(BodyPublishers.ofString(jsonBody)) 
+            .build();
+
+        try {
+            // Sending HTTP request
+            HttpClient client = HttpClient.newHttpClient();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handling response
+            if (response.statusCode() == 200) { 
+                System.out.println("AirportList added successfully for Aircraft: " + response.body());
+            } else {
+                System.out.println("Error: " + response.statusCode() + " - " + response.body());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void InsertSampleData(){
         for(int i=1;i<11;i++){
             createCity(i);
@@ -330,9 +331,9 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
             addPassengersToAircraft(i);
         }
 
-        
-   
-
+        for (int i=1;i<11;i++){
+            addAirportsToAircraft(i);
+        }
     }
 
 public void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId) {
@@ -402,6 +403,63 @@ public static class AircraftDisplay {  // Add static keyword here
                "craftId=" + craftId +
                ", type='" + type + '\'' +
                ", airlineName='" + airlineName + '\'' +
+               '}';
+    }
+}
+
+
+public static class AirportDisplay {  
+    @JsonProperty("airportId")
+    private long airportId;
+    
+    @JsonProperty("airportName")
+    private String airportName;
+    
+    @JsonProperty("airportCode")
+    private String airportCode;
+    
+    @JsonProperty("airportCity")
+    private String airportCity;
+
+    public long getAirportId() {
+        return airportId;
+    }
+
+    public void setAirportId(long airportId) {
+        this.airportId = airportId;
+    }
+
+    public String getAirportName() {
+        return airportName;
+    }
+
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
+    }
+
+    public String getAirportCode() {
+        return airportCode;
+    }
+
+    public void setAirportCode(String airportCode) {
+        this.airportCode = airportCode;
+    }
+
+    public String getAirportCity() {
+        return airportCity;
+    }
+
+    public void setAirportCity(String airportCity) {
+        this.airportCity = airportCity;
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+               "airportId=" + airportId +
+               ", airportName='" + airportName + '\'' +
+               ", airportCode='" + airportCode + '\'' +
+               ", airportCity='" + airportCity + '\'' +
                '}';
     }
 }

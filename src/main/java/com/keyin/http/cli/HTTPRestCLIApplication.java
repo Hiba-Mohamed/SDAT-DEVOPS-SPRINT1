@@ -81,7 +81,7 @@ public class HTTPRestCLIApplication {
             // Handle user input using switch statement
             switch (choice) {
                 case 1:
-                    System.out.println("Type The City Id: ");
+                    System.out.println("Type The City Id: (between 1 and 10)");
                     int cityID = scanner.nextInt();
                     System.out.println("");
                     System.out.println("--------------------------------");
@@ -91,7 +91,7 @@ public class HTTPRestCLIApplication {
                     break;
 
                 case 2:
-                    System.out.println("Type The Passenger Id: ");
+                    System.out.println("Type The Passenger Id:(between 1 and 30) ");
                     int passengerID = scanner.nextInt();
                     System.out.println("");
                     System.out.println("----------------------------------------");
@@ -100,7 +100,7 @@ public class HTTPRestCLIApplication {
                     break;
 
                 case 3:
-                 System.out.println("Type The Aircraft Id: ");
+                 System.out.println("Type The Aircraft Id:(between 1 and 10)  ");
                     int aircraftID = scanner.nextInt();
                     System.out.println("");
                     System.out.println("----------------------------------------");
@@ -109,7 +109,7 @@ public class HTTPRestCLIApplication {
 
                     break;
                 case 4:
-                    System.out.println("Type The Passenger Id: ");
+                    System.out.println("Type The Passenger Id: (between 1 and 30) ");
                     int passengerId = scanner.nextInt();
                     System.out.println("");
                     System.out.println("----------------------------------------");
