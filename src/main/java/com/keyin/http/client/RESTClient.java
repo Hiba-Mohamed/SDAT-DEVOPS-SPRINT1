@@ -71,29 +71,29 @@ public List<Airport> getAllAirports() {
 }
 
 
-public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
-    List<Airport> airports = new ArrayList<>();
+public List<AirportDisplay> giveMeCityIdIReturnAllItsAirports(int cityID) {
     String apiUrl = "http://localhost:8080/airportsByCity/" + cityID;
-
+List<AirportDisplay> allAirportDisplays = new ArrayList<>();
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
 
     try {
         HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == 200) {
-            airports = buildAirportListFromResponse(response.body());
-            System.out.println("Airports in City ID " + cityID + ":");
-            for (Airport airport : airports) {
-                System.out.println(airport.getName() + " - " + airport.getCode());
-            }
+        if (response.statusCode() == 200) { 
+            System.out.println("Airports in City " +cityID+ ": ");
+            System.out.println("");
+
+             allAirportDisplays = buildAirportDisplayListFromResponse(response.body()); 
+
         } else {
             System.out.println("Error Status Code: " + response.statusCode());
         }
+
+
     } catch (IOException | InterruptedException e) {
         e.printStackTrace();
     }
-
-    return airports;
+    return allAirportDisplays;
 }
 
 
@@ -106,7 +106,7 @@ public List<Airport> giveMeCityIdIReturnAllItsAirports(int cityID) {
         HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
 
         if (response.statusCode() == 200) { 
-            System.out.println("Aircrat " + aircraftID+" Can travel on airports Below: ");
+            System.out.println("Aircraft " + aircraftID+" Can Use Airports Below: ");
             System.out.println("");
 
             List<AirportDisplay> allAirportDisplays = buildAirportDisplayListFromResponse(response.body()); 
@@ -380,6 +380,30 @@ public void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId
         e.printStackTrace();
     }
 
+}
+
+public void giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
+    String apiUrl = "http://localhost:8080/getAirportByPassengerId/" + passengerId;
+
+    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+
+    try {
+        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) { 
+            System.out.println("Passenger  " + passengerId +" Have used airports below: ");
+            System.out.println("");
+
+            List<AirportDisplay> allAirportDisplays = buildAirportDisplayListFromResponse(response.body()); 
+
+        } else {
+            System.out.println("Error Status Code: " + response.statusCode());
+        }
+
+
+    } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+    }
 }
 
 public static class AircraftDisplay {  // Add static keyword here

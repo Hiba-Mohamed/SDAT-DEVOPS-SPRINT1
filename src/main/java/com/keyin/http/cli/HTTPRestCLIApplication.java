@@ -23,8 +23,8 @@ public class HTTPRestCLIApplication {
         restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
         }
 
-    private void giveMePassengerIdIReturnAllAirportsTheyUsed(){
-        System.out.println("Logic not added Yet");
+    private void giveMePassengerIdIReturnAllAirportsTheyUsed(int passengerId){
+        restClient.giveMePassengerIdIReturnAllAirportsTheyHaveUsed(passengerId);
         }
         
     private void exitApplication() {
@@ -113,7 +113,7 @@ public class HTTPRestCLIApplication {
                     int passengerId = scanner.nextInt();
                     System.out.println("");
                     System.out.println("----------------------------------------");
-                    cliApp.giveMePassengerIdIReturnAllAirportsTheyUsed();  
+                    cliApp.giveMePassengerIdIReturnAllAirportsTheyUsed(passengerId);  
                     System.out.println("-----------------------------------------");
 
                     break;
