@@ -1,4 +1,5 @@
 package com.keyin.http.cli;
+import java.util.List;
 import java.util.Scanner;
 
 import com.keyin.http.client.RESTClient;
@@ -10,8 +11,8 @@ public class HTTPRestCLIApplication {
 
     // Methods to handle specific actions
 
-    private void giveMeCityIdIReturnAllItsAirports(int cityId) {
-        restClient.giveMeCityIdIReturnAllItsAirports(cityId);
+    public List<RESTClient.AirportDisplay> giveMeCityIdIReturnAllItsAirports(int cityId) {
+        return restClient.giveMeCityIdIReturnAllItsAirports(cityId);
     }
 
     private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {

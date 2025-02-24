@@ -1,51 +1,41 @@
-// package com.keyin;
+ package com.keyin;
 
-// import com.keyin.domain.Airport;
-// import com.keyin.http.cli.HTTPRestCLIApplication;
-// import com.keyin.http.client.RESTClient;
-// import org.junit.jupiter.api.Assertions;
-// import org.junit.jupiter.api.Test;
-// import org.junit.jupiter.api.extension.ExtendWith;
-// import org.mockito.Mock;
-// import org.mockito.Mockito;
-// import org.mockito.junit.jupiter.MockitoExtension;
-
-// import java.util.ArrayList;
-// import java.util.List;
-
-// @ExtendWith(MockitoExtension.class)
-// public class HTTPRestCLIApplicationTest {
-//     @Mock
-//     private RESTClient mockRESTClient;
-
-//     @Test
-//     public void testGenerateAirportReport() {
-//         HTTPRestCLIApplication httpRestCLIApplicationUnderTest = new HTTPRestCLIApplication();
-
-//         Airport stJohnsAirport = new Airport();
-//         stJohnsAirport.setCode("YYT");
-//         stJohnsAirport.setName("St. John's Airport");
-//         stJohnsAirport.setId(1);
-
-//         List<Airport> airportList = new ArrayList<Airport>();
-//         airportList.add(stJohnsAirport);
-
-//         Mockito.when(mockRESTClient.getAllAirports()).thenReturn(airportList);
-
-//         httpRestCLIApplicationUnderTest.setRestClient(mockRESTClient);
-
-//         Assertions.assertTrue(httpRestCLIApplicationUnderTest.generateAirportReport().contains("YYT"));
-//     }
+ import com.keyin.http.cli.HTTPRestCLIApplication;
+ import com.keyin.http.client.RESTClient;
+ import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.extension.ExtendWith;
+ import org.mockito.junit.jupiter.MockitoExtension;
 
 
-//     public void _testGenerateAirportReportWithError() {
-//         HTTPRestCLIApplication httpRestCLIApplicationUnderTest = new HTTPRestCLIApplication();
+ import java.util.Collections;
+ import java.util.List;
 
-//         RESTClient restClient = new RESTClient();
-//         restClient.setServerURL("http://localhost:8080/airports");
+ import static org.junit.jupiter.api.Assertions.assertEquals;
+ import static org.junit.jupiter.api.Assertions.assertNotNull;
+ import static org.mockito.Mockito.*;
 
-//         httpRestCLIApplicationUnderTest.setRestClient(restClient);
+ @ExtendWith(MockitoExtension.class)
+ public class HTTPRestCLIApplicationTest {
+     private HTTPRestCLIApplication cliApp;
+     private RESTClient mockRestClient;
 
-//         Assertions.assertTrue(httpRestCLIApplicationUnderTest.generateAirportReport().contains("YYT"));
-//     }
-// }
+     @BeforeEach
+     public void setUp() {
+         cliApp = new HTTPRestCLIApplication();
+         mockRestClient = mock(RESTClient.class);
+         cliApp.setRestClient(mockRestClient);
+     }
+
+     @Test
+     public void testGiveMeCityIdIReturnAllItsAirports() {
+         when(mockRestClient.giveMeCityIdIReturnAllItsAirports(1)).thenReturn(Collections.emptyList());
+
+         List<RESTClient.AirportDisplay> result = cliApp.giveMeCityIdIReturnAllItsAirports(1);
+
+         verify(mockRestClient, times(1)).giveMeCityIdIReturnAllItsAirports(1);
+         assertNotNull(result);
+         assertEquals(0, result.size());
+     }
+
+ }
