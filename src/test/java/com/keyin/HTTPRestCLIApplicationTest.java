@@ -74,4 +74,56 @@
          assertTrue(result.contains("Airport1"));
          assertTrue(result.contains("Airport2"));
      }
+
+     @Test
+     public void testGiveMeCityIdIReturnAllItsAirports_nonEmptyList() {
+         RESTClient.AirportDisplay airport1 = new RESTClient.AirportDisplay();
+
+         RESTClient.AirportDisplay airport2 = new RESTClient.AirportDisplay();
+
+         when(mockRestClient.giveMeCityIdIReturnAllItsAirports(1)).thenReturn(List.of(airport1, airport2));
+
+         List<RESTClient.AirportDisplay> result = cliApp.giveMeCityIdIReturnAllItsAirports(1);
+
+         verify(mockRestClient, times(1)).giveMeCityIdIReturnAllItsAirports(1);
+         assertNotNull(result);
+         assertEquals(2, result.size());
+         assertEquals("Airport1", result.get(0).getAirportName());
+         assertEquals("Airport2", result.get(1).getAirportName());
+     }
+
+
+     @Test
+     public void testGiveMePassengerIdIReturnAllAircraftsTheyTravelledOn_emptyList() {
+         when(mockRestClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(3)).thenReturn(Collections.emptyList());
+
+         List<String> result = cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(3);
+
+         verify(mockRestClient, times(1)).giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(3);
+         assertNotNull(result);
+         assertEquals(0, result.size());
+     }
+
+     @Test
+     public void testGiveMeAircraftIdIReturnAllAirports_emptyList() {
+         when(mockRestClient.giveMeAircraftIdIReturnAllAirportsItCanUse(5)).thenReturn(Collections.emptyList());
+
+         List<String> result = cliApp.getRestClient().giveMeAircraftIdIReturnAllAirportsItCanUse(5);
+
+         verify(mockRestClient, times(1)).giveMeAircraftIdIReturnAllAirportsItCanUse(5);
+         assertNotNull(result);
+         assertEquals(0, result.size());
+     }
+
+     @Test
+     public void testGiveMePassengerIdIReturnAllAirportsTheyUsed_emptyList() {
+         when(mockRestClient.giveMePassengerIdIReturnAllAirportsTheyHaveUsed(6)).thenReturn(Collections.emptyList());
+
+         List<String> result = cliApp.giveMePassengerIdIReturnAllAirportsTheyUsed(6);
+
+         verify(mockRestClient, times(1)).giveMePassengerIdIReturnAllAirportsTheyHaveUsed(6);
+         assertNotNull(result);
+         assertEquals(0, result.size());
+     }
+
  }
