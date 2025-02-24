@@ -78,8 +78,10 @@
      @Test
      public void testGiveMeCityIdIReturnAllItsAirports_nonEmptyList() {
          RESTClient.AirportDisplay airport1 = new RESTClient.AirportDisplay();
+         airport1.setAirportName("Airport1");
 
          RESTClient.AirportDisplay airport2 = new RESTClient.AirportDisplay();
+         airport2.setAirportName("Airport2");
 
          when(mockRestClient.giveMeCityIdIReturnAllItsAirports(1)).thenReturn(List.of(airport1, airport2));
 
@@ -91,6 +93,7 @@
          assertEquals("Airport1", result.get(0).getAirportName());
          assertEquals("Airport2", result.get(1).getAirportName());
      }
+
 
 
      @Test
