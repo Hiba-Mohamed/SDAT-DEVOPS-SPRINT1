@@ -18,8 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.keyin.domain.Aircraft;
-import com.keyin.domain.City;
-import com.keyin.domain.Passenger;
 
 public class RESTClient {
     private String serverURL;
@@ -98,7 +96,7 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
 }
 
 
-    public void giveMeAircraftIdIReturnAllAirportsItCanUse(int aircraftID){
+    public List<String> giveMeAircraftIdIReturnAllAirportsItCanUse(int aircraftID){
             String apiUrl = "http://localhost:8080/" + aircraftID + "/aircraftsAirportsList";
 
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
@@ -120,6 +118,7 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
     } catch (IOException | InterruptedException e) {
         e.printStackTrace();
     }
+        return null;
     }
         
     private void exitApplication() {

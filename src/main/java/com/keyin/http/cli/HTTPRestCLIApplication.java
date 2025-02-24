@@ -20,8 +20,8 @@ public class HTTPRestCLIApplication {
 //         return null;
     }
 
-    private void giveMeAircraftIdIReturnAllAirports(int aircraftID){
-        restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
+    public List<String> giveMeAircraftIdIReturnAllAirports(int aircraftID){
+        return restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
         }
 
     private void giveMePassengerIdIReturnAllAirportsTheyUsed(int passengerId){

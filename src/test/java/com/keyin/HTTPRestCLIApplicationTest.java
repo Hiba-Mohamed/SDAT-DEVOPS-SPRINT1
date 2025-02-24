@@ -11,8 +11,7 @@
  import java.util.Collections;
  import java.util.List;
 
- import static org.junit.jupiter.api.Assertions.assertEquals;
- import static org.junit.jupiter.api.Assertions.assertNotNull;
+ import static org.junit.jupiter.api.Assertions.*;
  import static org.mockito.Mockito.*;
 
  @ExtendWith(MockitoExtension.class)
@@ -50,4 +49,16 @@
          assertEquals("Boeing 747", result.get(0));
      }
 
+     @Test
+     public void testGiveMeAircraftIdIReturnAllAirports() {
+         when(mockRestClient.giveMeAircraftIdIReturnAllAirportsItCanUse(3)).thenReturn(List.of("Airport1", "Airport2"));
+
+         List<String> result = cliApp.getRestClient().giveMeAircraftIdIReturnAllAirportsItCanUse(3);
+
+         verify(mockRestClient, times(1)).giveMeAircraftIdIReturnAllAirportsItCanUse(3);
+         assertNotNull(result);
+         assertEquals(2, result.size());
+         assertTrue(result.contains("Airport1"));
+         assertTrue(result.contains("Airport2"));
+     }
  }
