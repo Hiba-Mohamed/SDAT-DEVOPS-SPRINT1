@@ -14,11 +14,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.keyin.domain.Aircraft;
-import com.keyin.domain.City;
-import com.keyin.domain.Passenger;
 
 public class RESTClient {
     private String serverURL;
@@ -97,7 +96,7 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
 }
 
 
-    public void giveMeAircraftIdIReturnAllAirportsItCanUse(int aircraftID){
+    public List<String> giveMeAircraftIdIReturnAllAirportsItCanUse(int aircraftID){
             String apiUrl = "http://localhost:8080/" + aircraftID + "/aircraftsAirportsList";
 
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
@@ -119,6 +118,7 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
     } catch (IOException | InterruptedException e) {
         e.printStackTrace();
     }
+        return null;
     }
         
     private void exitApplication() {
@@ -356,33 +356,62 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
         }
     }
 
-public void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId) {
+//public void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId) {
+//
+//    String apiUrl = "http://localhost:8080/" + passengerId + "/aircraftsPassengerTravelledOn";
+//
+//    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+//
+//    try {
+//        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+//
+//        if (response.statusCode() == 200) {
+//            System.out.println("Passenger " + passengerId +" Travelled on Airraft Below: ");
+//            System.out.println("");
+//
+//            List<AircraftDisplay> allAircraftDisplays = buildAircraftDisplayListFromResponse(response.body());
+//
+//        } else {
+//            System.out.println("Error Status Code: " + response.statusCode());
+//        }
+//
+//
+//    } catch (IOException | InterruptedException e) {
+//        e.printStackTrace();
+//    }
+//
+//}
 
-    String apiUrl = "http://localhost:8080/" + passengerId + "/aircraftsPassengerTravelledOn";
+    public List<String> giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(long passengerId) {
+        String apiUrl = "http://localhost:8080/" + passengerId + "/aircraftsPassengerTravelledOn";
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
 
-    HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
+        try {
+            HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
 
-    try {
-        HttpResponse<String> response = getClient().send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 200) {
+                System.out.println("Passenger " + passengerId + " travelled on aircrafts below: ");
+                System.out.println("");
 
-        if (response.statusCode() == 200) { 
-            System.out.println("Passenger " + passengerId +" Travelled on Airraft Below: ");
-            System.out.println("");
+                List<AircraftDisplay> allAircraftDisplays = buildAircraftDisplayListFromResponse(response.body());
 
-            List<AircraftDisplay> allAircraftDisplays = buildAircraftDisplayListFromResponse(response.body()); 
-
-        } else {
-            System.out.println("Error Status Code: " + response.statusCode());
+                List<String> aircraftNames = new ArrayList<>();
+                for (AircraftDisplay aircraft : allAircraftDisplays) {
+                    aircraftNames.add(aircraft.getAirlineName());
+                }
+                return aircraftNames;  // Return the list
+            } else {
+                System.out.println("Error Status Code: " + response.statusCode());
+                return Collections.emptyList();  // Return an empty list in case of error
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return Collections.emptyList();  // Return an empty list in case of exception
         }
-
-
-    } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
     }
 
-}
 
-public void giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
+public List<String> giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
     String apiUrl = "http://localhost:8080/getAirportByPassengerId/" + passengerId;
 
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
@@ -404,6 +433,7 @@ public void giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
     } catch (IOException | InterruptedException e) {
         e.printStackTrace();
     }
+    return null;
 }
 
 public static class AircraftDisplay {  // Add static keyword here

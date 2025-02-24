@@ -1,4 +1,5 @@
 package com.keyin.http.cli;
+import java.util.List;
 import java.util.Scanner;
 
 import com.keyin.http.client.RESTClient;
@@ -10,21 +11,21 @@ public class HTTPRestCLIApplication {
 
     // Methods to handle specific actions
 
-    private void giveMeCityIdIReturnAllItsAirports(int cityId) {
-        restClient.giveMeCityIdIReturnAllItsAirports(cityId);
+    public List<RESTClient.AirportDisplay> giveMeCityIdIReturnAllItsAirports(int cityId) {
+        return restClient.giveMeCityIdIReturnAllItsAirports(cityId);
     }
 
-    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
-                restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
-        // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
+    public List<String> giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
+         return restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
+//         return null;
     }
 
-    private void giveMeAircraftIdIReturnAllAirports(int aircraftID){
-        restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
+    public List<String> giveMeAircraftIdIReturnAllAirports(int aircraftID){
+        return restClient.giveMeAircraftIdIReturnAllAirportsItCanUse(aircraftID);
         }
 
-    private void giveMePassengerIdIReturnAllAirportsTheyUsed(int passengerId){
-        restClient.giveMePassengerIdIReturnAllAirportsTheyHaveUsed(passengerId);
+    public List<String> giveMePassengerIdIReturnAllAirportsTheyUsed(int passengerId){
+        return restClient.giveMePassengerIdIReturnAllAirportsTheyHaveUsed(passengerId);
         }
         
     private void exitApplication() {
