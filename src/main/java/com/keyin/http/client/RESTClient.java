@@ -411,7 +411,7 @@ List<AirportDisplay> allAirportDisplays = new ArrayList<>();
     }
 
 
-public void giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
+public List<String> giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
     String apiUrl = "http://localhost:8080/getAirportByPassengerId/" + passengerId;
 
     HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl)).build();
@@ -433,6 +433,7 @@ public void giveMePassengerIdIReturnAllAirportsTheyHaveUsed(long passengerId){
     } catch (IOException | InterruptedException e) {
         e.printStackTrace();
     }
+    return null;
 }
 
 public static class AircraftDisplay {  // Add static keyword here

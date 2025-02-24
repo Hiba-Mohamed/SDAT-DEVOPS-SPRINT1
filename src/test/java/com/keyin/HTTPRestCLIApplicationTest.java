@@ -61,4 +61,17 @@
          assertTrue(result.contains("Airport1"));
          assertTrue(result.contains("Airport2"));
      }
+
+     @Test
+     void testGiveMePassengerIdIReturnAllAirportsTheyUsed() {
+         when(mockRestClient.giveMePassengerIdIReturnAllAirportsTheyHaveUsed(4)).thenReturn(List.of("Airport1", "Airport2"));
+
+         List<String> result = cliApp.giveMePassengerIdIReturnAllAirportsTheyUsed(4);
+
+         verify(mockRestClient, times(1)).giveMePassengerIdIReturnAllAirportsTheyHaveUsed(4);
+         assertNotNull(result);
+         assertEquals(2, result.size());
+         assertTrue(result.contains("Airport1"));
+         assertTrue(result.contains("Airport2"));
+     }
  }
