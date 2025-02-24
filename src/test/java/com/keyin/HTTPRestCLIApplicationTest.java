@@ -38,4 +38,16 @@
          assertEquals(0, result.size());
      }
 
+     @Test
+     public void testGiveMePassengerIdIReturnAllAircraftsTheyTravelledOn() {
+         when(mockRestClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(2)).thenReturn(List.of("Boeing 747"));
+
+         List<String> result = cliApp.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(2);
+
+         verify(mockRestClient, times(1)).giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(2);
+         assertNotNull(result);
+         assertEquals(1, result.size());
+         assertEquals("Boeing 747", result.get(0));
+     }
+
  }

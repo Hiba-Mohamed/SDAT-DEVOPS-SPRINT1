@@ -15,9 +15,9 @@ public class HTTPRestCLIApplication {
         return restClient.giveMeCityIdIReturnAllItsAirports(cityId);
     }
 
-    private void giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
-                restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
-        // restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
+    public List<String> giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(int passengerID) {
+         return restClient.giveMePassengerIdIReturnAllAircraftsTheyTravelledOn(passengerID);
+//         return null;
     }
 
     private void giveMeAircraftIdIReturnAllAirports(int aircraftID){
